@@ -9,10 +9,13 @@
                     <form method="POST" action="{% url 'login' %}" >
                         {% csrf_token %}
                         <div class="control-group">
+                            {% for m_error in form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">{{ m_error }}</div>
+                            {% endfor %}
+                            {{ form.phone }}.
                             {% for error in form.phone.errors %}
                             <div class="alert alert-danger" role="alert"> {{ error }}</div>
                             {% endfor %}
-                            {{ form.phone }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
