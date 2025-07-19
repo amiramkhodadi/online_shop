@@ -6,29 +6,20 @@
             <div class=" mb-5 contact-us" style="">
                 <div class="contact-form bg-light p-30">
                     <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <form method="POST" action="{% url 'login' %}" >
+                        {% csrf_token %}
                         <div class="control-group">
-                            <input type="text" class="form-control" id="name" placeholder="Your Number"
-                                required="required" data-validation-required-message="Please enter your Number" />
+                            {% for error in form.phone.errors %}
+                            <div class="alert alert-danger" role="alert"> {{ error }}</div>
+                            {% endfor %}
+                            {{ form.phone }}
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="password" class="form-control" id="password" placeholder="Your password"
-                                required="required" data-validation-required-message="Please enter your password" />
+                           {{ form.password }}
                             <p class="help-block text-danger"></p>
                         </div>
-{#                        <div class="control-group">#}
-{#                            <input type="text" class="form-control" id="subject" placeholder="Subject"#}
-{#                                required="required" data-validation-required-message="Please enter a subject" />#}
-{#                            <p class="help-block text-danger"></p>#}
-{#                        </div>#}
-{#                        <div class="control-group">#}
-{#                            <textarea class="form-control" rows="8" id="message" placeholder="Message"#}
-{#                                required="required"#}
-{#                                data-validation-required-message="Please enter your message"></textarea>#}
-{#                            <p class="help-block text-danger"></p>#}
-{#                        </div>#}
-{#                        <div>#}
+
                             <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
                                 Login
                                 </button>
