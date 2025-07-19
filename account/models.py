@@ -3,12 +3,13 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email,full_name=None, password=None):
-        if not email:
-            raise ValueError("Users must have an email address")
+    def create_user(self, phone=None ,full_name=None, password=None):
+        if not phone:
+            raise ValueError("Users must have an phone number")
 
         user = self.model(
-            email=self.normalize_email(email),
+            phone=phone
+,
             full_name=full_name,
         )
 
@@ -16,13 +17,13 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, full_name,password=None):
+    def create_superuser(self, phone, full_name,password=None):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
         user = self.create_user(
-            email,full_name,
+            phone,full_name,
             password=password,
 
 
@@ -33,10 +34,12 @@ class MyUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    email = models.EmailField(
-        verbose_name="email address",
-        max_length=255,
+    phone = models.CharField(
+        verbose_name="phone number",
+        max_length=12,
         unique=True,
+        null=True,
+        blank=True,
     )
     full_name = models.CharField(verbose_name="full name", max_length=255)
     is_active = models.BooleanField(default=True)
@@ -44,11 +47,11 @@ class User(AbstractBaseUser):
 
     objects = MyUserManager()
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "phone"
     REQUIRED_FIELDS = ["full_name"]
 
     def __str__(self):
-        return self.email
+        return self.phone
 
     def has_perm(self, perm, obj=None):
         return True
