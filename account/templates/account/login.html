@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+{% block content %}
+        <div class="container-fluid">
+        <h2 class="section-title position-relative text-uppercase text-center mx-xl-5 mb-4"><span class="bg-secondary pr-3">Login</span></h2>
+        <div class=" px-xl-5">
+            <div class=" mb-5 contact-us" style="">
+                <div class="contact-form bg-light p-30">
+                    <div id="success"></div>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <div class="control-group">
+                            <input type="text" class="form-control" id="name" placeholder="Your Number"
+                                required="required" data-validation-required-message="Please enter your Number" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="password" class="form-control" id="password" placeholder="Your password"
+                                required="required" data-validation-required-message="Please enter your password" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+{#                        <div class="control-group">#}
+{#                            <input type="text" class="form-control" id="subject" placeholder="Subject"#}
+{#                                required="required" data-validation-required-message="Please enter a subject" />#}
+{#                            <p class="help-block text-danger"></p>#}
+{#                        </div>#}
+{#                        <div class="control-group">#}
+{#                            <textarea class="form-control" rows="8" id="message" placeholder="Message"#}
+{#                                required="required"#}
+{#                                data-validation-required-message="Please enter your message"></textarea>#}
+{#                            <p class="help-block text-danger"></p>#}
+{#                        </div>#}
+{#                        <div>#}
+                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
+                                Login
+                                </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

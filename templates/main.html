@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/header_refrences.html' %}
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    {% include 'includes/topbar.html' %}
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    {% include 'includes/navbar.html' %}
+    <!-- Navbar End -->
+
+
+{% block content %}
+
+{% endblock %}
+    <!-- Vendor End -->
+
+
+    <!-- Footer Start -->
+
+    {% include "includes/footer.html" %}
+
+    {% include "includes/js_refrences.html" %}
+
+</body>
+
+</html>
