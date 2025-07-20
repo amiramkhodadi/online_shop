@@ -71,7 +71,7 @@ class RegisterSecoundStepView(View):
 
                 if code_obj.is_valid():
                     user , is_create  = User.objects.get_or_create(phone=phone)
-                    login(request, user)
+                    login(request, user , backend='django.contrib.auth.backends.ModelBackend')
                     # chon darim expired shdn ono ham beresi mikonim v error tolid mikonim pass nbaid in obj ro az data base pak konim
                     # code_obj.delete()
                     return redirect('/')

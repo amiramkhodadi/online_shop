@@ -7,9 +7,35 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 
+from django import forms
+from django.core.exceptions import ValidationError
+import re
+
 class RegisterForm(forms.Form):
-    phone = forms.CharField(max_length=11, widget=forms.TextInput(attrs={'class': 'form-control' ,  'placeholder': 'Enter your phone number'}),
-                            validators=[MaxLengthValidator(11), MinLengthValidator(11)],)
+    phone = forms.CharField(
+        max_length=11,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter your phone number'
+        })
+    )
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+
+        phone = phone.strip().replace(" ", "")
+
+        if len(phone) != 11:
+            raise ValidationError("شماره تلفن باید دقیقاً ۱۱ رقم باشد.")
+
+        if not phone.startswith("09"):
+            raise ValidationError("شماره تلفن باید با 09 شروع شود.")
+
+        if not re.match(r'^\d{11}$', phone):
+            raise ValidationError("شماره تلفن باید فقط شامل اعداد باشد.")
+
+        return phone
+
 
 class RegisterSecondForm(forms.Form):
     code = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control' , 'placeholder': 'Enter your Code'}),)
