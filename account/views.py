@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -83,3 +83,7 @@ class RegisterSecoundStepView(View):
                 form.add_error('code', 'Your code is wrong')
 
         return render(request, 'account/register_step_2.html', { 'form' : form ,'right_code' : right_code })
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')
