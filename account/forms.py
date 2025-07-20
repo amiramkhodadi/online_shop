@@ -7,3 +7,9 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 
+class RegisterForm(forms.Form):
+    phone = forms.CharField(max_length=11, widget=forms.TextInput(attrs={'class': 'form-control' ,  'placeholder': 'Enter your phone number'}),
+                            validators=[MaxLengthValidator(11), MinLengthValidator(11)],)
+
+class RegisterSecondForm(forms.Form):
+    code = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control' , 'placeholder': 'Enter your Code'}),)

@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.utils import timezone
+from datetime import timedelta
+import random
 
 
 class MyUserManager(BaseUserManager):
@@ -62,3 +65,20 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class VerificationCode(models.Model):
+    phone = models.CharField(verbose_name="phone number", max_length=12)
+    code = models.CharField(max_length=6)
+    expires_at = models.DateTimeField()
+
+    def is_valid(self):
+        return timezone.now() <= self.expires_at
+
+    def save(self, *args, **kwargs):
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(minutes=2)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.code} - Valid: {self.is_valid()} - {self.phone}"
