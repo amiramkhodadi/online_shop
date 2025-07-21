@@ -8,12 +8,6 @@ class Size(models.Model):
     def __str__(self):
         return self.title
 
-
-
-
-    def __str__(self):
-        return self.content[:20]
-
 class Color(models.Model):
     title = models.CharField(max_length=100)
 
@@ -38,4 +32,4 @@ class Information(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='informations' ,null=True, blank=True)
 
     def __str__(self):
-        return f"{self.content}: {self.product}"
+        return self.content
