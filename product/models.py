@@ -22,8 +22,8 @@ class Product(models.Model):
     price = models.IntegerField()
     image = models.ImageField(upload_to='products')
     discount = models.IntegerField(default=0)
-    size = models.ManyToManyField(Size , related_name='products' )
-    color = models.ManyToManyField( Color , related_name='products' )
+    size = models.ManyToManyField(Size,null=True , blank=True , related_name='products' )
+    color = models.ManyToManyField( Color ,null=True , blank=True, related_name='products' )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
