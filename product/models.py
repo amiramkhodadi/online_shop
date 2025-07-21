@@ -8,8 +8,8 @@ class Size(models.Model):
     def __str__(self):
         return self.title
 
-class Information(models.Model):
-    content = models.TextField()
+
+
 
     def __str__(self):
         return self.content[:20]
@@ -29,8 +29,13 @@ class Product(models.Model):
     size = models.ManyToManyField(Size,null=True , blank=True , related_name='products' )
     color = models.ManyToManyField( Color ,null=True , blank=True, related_name='products' )
     created_at = models.DateTimeField(auto_now_add=True)
-    information = models.ManyToManyField(Information,null=True , blank=True , related_name='products' )
 
     def __str__(self):
         return f'{self.title} - {self.price} - {self.discount}'
 
+class Information(models.Model):
+    content = models.TextField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='informations' ,null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.content}: {self.product}"
