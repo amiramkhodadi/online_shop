@@ -8,32 +8,29 @@
                     <thead class="thead-dark">
                         <tr>
                              <th>Image</th>
-                            <th>Products</th>
+                            <th>Title</th>
                             <th>Price</th>
                             <th>Quantity</th>
+                            <th>Color</th>
+                            <th>Size</th>
                             <th>Total</th>
                             <th>Remove</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        <tr>
-                            <td class="align-middle"><img src="{% static "img/product-1.jpg" %}" alt="" style="width: 50px;"> </td>
-                            <td class="align-middle">Product Name</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
+                       {% for item in cart %}
+                            <tr>
+                            <td class="align-middle"><img src="{{ item.product.image.url }}" alt="" style="width: 50px;"> </td>
+                            <td class="align-middle">{{ item.product.title }}</td>
+                            <td class="align-middle">{{item.product.price}}</td>
+                            <td class="align-middle">{{item.quantity}}</td>
+                            <td class="align-middle">{{item.color}}</td>
+                            <td class="align-middle">{{item.size}}</td>
+                           <td class="align-middle">{{item.total}}</td>
 
-                                    </div>
-                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
                             <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
                         </tr>
+                    {% endfor %}
 
                     </tbody>
                 </table>

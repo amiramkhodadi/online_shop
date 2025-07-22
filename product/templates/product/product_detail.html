@@ -29,11 +29,11 @@
 
                         {% if product.size.exists %}<strong class="text-dark mr-3">Sizes:</strong>{% endif %}
 
-                        <form method="POST" action="{% url 'add_to_cart' %}">
+                        <form method="POST" action="{% url 'add_to_cart' product.id %}">
                         {% csrf_token %}
                             {% for size in product.size.all %}
                                 <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="{{ color.id }}" name="size">
+                                <input type="radio" value="{{ size.title }}" class="custom-control-input" id="{{ color.id }}" name="size">
                                 <label class="custom-control-label" for="{{ color.id }}">{{ size }}</label>
                             </div>
                             {% endfor %}
@@ -48,7 +48,7 @@
 
                           {% for color in product.color.all %}
                                 <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="{{ color.id }}" name="color">
+                                <input type="radio" class="custom-control-input" value="{{ color.title }}" id="{{ color.id }}" name="color">
                                 <label class="custom-control-label" for="{{ color.id }}">{{ color }}</label>
                             </div>
                             {% endfor %}
@@ -62,7 +62,7 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text"   class="form-control bg-secondary border-0 text-center" value="1">
+                            <input type="text" name='quantity'  class="form-control bg-secondary border-0 text-center" value="1">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus" type="button">
                                     <i class="fa fa-plus"></i>
