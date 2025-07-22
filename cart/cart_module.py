@@ -42,4 +42,4 @@ class Cart:
             self.cart[unique]['quantity'] += int(quantity)
         self.save()
 
-    def delete_cart(self):
+    # def delete_cart(self):
