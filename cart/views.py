@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 
@@ -6,3 +6,8 @@ from django.views import View
 class CartView(View):
     def get(self, request):
         return render(request , "cart/cart_detail.html" ,{})
+
+
+class AddToCartView(View):
+    def post(self ,request):
+        return redirect('cart_detail')
