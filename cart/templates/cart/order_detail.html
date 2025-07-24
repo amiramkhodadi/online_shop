@@ -58,24 +58,29 @@
                             <h5>Total</h5>
                             <h5>{{order.total_price}}</h5>
                         </div>
-                        {% if request.user.addresses.exists %}
-                                <a href="{% url "create_order" %}"><button class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</button> </a>
-                            {% else %}
-                            <a href="{% url 'add_address' %}?next={% url 'order_detail' order.id %}"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Add Your Address First</button> </a>
-                        {% endif %}
+{#                        {% if request.user.addresses.exists %}#}
+{#                                <a href="{% url "create_order" %}"><button class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</button> </a>#}
+{#                            {% else %}#}
+{#                            <a href="{% url 'add_address' %}?next={% url 'order_detail' order.id %}"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Add Your Address First</button> </a>#}
+{#                        {% endif %}#}
 
                     </div>
 
                 </div>
                 {% if request.user.addresses.exists %}
-                <select class="form-control" aria-label="Default select example">
+                    <form method='post' class="mb-30" action="{% url 'send_request' order.id %}">
+                    {% csrf_token %}
+                <select  name='address' class="form-control" aria-label="Default select example">
                             {% for address in request.user.addresses.all %}
                                  <option value="{{ address.id }}">{{ address.address}}</option>
                             {% endfor %}
                 </select>
-                <a href="{% url "add_address"%}?next={% url 'order_detail' order.id %}"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Another Address</button> </a>
-
-                {% endif %}
+                        <a href="{% url "add_address"%}?next={% url 'order_detail' order.id %}"><button type='button' class="btn btn-block btn-primary font-weight-bold my-3 py-3">Another Address</button> </a>
+                        <button type='submit' class ="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</button>
+                    </form>
+                {% else %}
+                            <a href="{% url 'add_address' %}?next={% url 'order_detail' order.id %}"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Add Your Address First</button> </a>
+                        {% endif %}
             </div>
         </div>
     </div>

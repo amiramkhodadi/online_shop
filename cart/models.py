@@ -10,7 +10,7 @@ class Order(models.Model):
     total_price  = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
-
+    address = models.CharField(max_length=100, default='', blank=True , null=True)
 
     def __str__(self):
         return f'{self.user.full_name}  - {self.is_paid}'
