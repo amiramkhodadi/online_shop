@@ -25,7 +25,7 @@ class AddToCartView(View):
 class RemoveFromCartView(View):
     def get(self , request , id ):
         cart = Cart(request)
-        cart.delete_cart(id)
+        cart.delete_item_of_order(id)
         return redirect('cart_detail')
 
 
@@ -37,6 +37,7 @@ class CreateOrderView(View):
         for item in cart :
             OrderItem.objects.create(order = order, product =item['product'], price= item['price'], size= item['size'], color= item['color'] , quantity = item['quantity'] , )
 
+        cart.delete_cart()
 
         return redirect('order_detail' , order.id )
 

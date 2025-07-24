@@ -50,7 +50,10 @@ class Cart:
             total += item['total']
         return total
 
-    def delete_cart(self, id):
+    def delete_item_of_order(self, id):
         if id in self.cart :
             del self.cart[id]
             self.save()
+
+    def delete_cart(self) :
+        del self.session[CART_SESSION_ID]
