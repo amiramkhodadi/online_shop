@@ -35,11 +35,12 @@
                 </table>
             </div>
             <div class="col-lg-4">
-                <form class="mb-30" action="">
+                <form method='post' class="mb-30" action="{% url 'apply_coupon' order.id %}">
+                    {% csrf_token %}
                     <div class="input-group">
-                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
+                        <input type="text" class="form-control border-0 p-4" name="code" placeholder="Descount code ...">
                         <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon</button>
+                            <button  type ='submit' class="btn btn-primary">Apply Coupon</button>
                         </div>
                     </div>
                 </form>
@@ -66,11 +67,8 @@
                     </div>
 
                 </div>
-{#                <a href="{% url "create_order" %}"><button class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</button> </a>#}
-
                 {% if request.user.addresses.exists %}
                 <select class="form-control" aria-label="Default select example">
-{#                          <option selected>Select Your Address From Here </option>#}
                             {% for address in request.user.addresses.all %}
                                  <option value="{{ address.id }}">{{ address.address}}</option>
                             {% endfor %}

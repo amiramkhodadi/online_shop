@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .cart_module import Cart
 from product.models import Product
-from .models import OrderItem, Order
+from .models import OrderItem, Order,DiscountCode
 
 
 # Create your views here.
@@ -45,3 +45,23 @@ class OrderDetailView(View):
     def get(self, request , pk ):
         order =get_object_or_404( Order ,id = pk)
         return render(request , 'cart/order_detail.html' , {'order':order})
+
+
+class OrderDescountView(View):
+    def post(self, request, pk):
+        code = request.POST.get('code')
+        order = get_object_or_404(Order, id=pk, user=request.user, is_paid=False)
+        discount_code = get_object_or_404(DiscountCode, name=code)
+
+        if discount_code.quantity == 0 :
+            return redirect('order_detail', pk=order.id)
+
+        order.total_price -= order.total_price * int(discount_code.discount_code)/100
+        order.total_price = int(order.total_price)
+
+        order.save()
+
+        discount_code.quantity -= 1
+        discount_code.save()
+
+        return redirect('order_detail', pk=order.id)
