@@ -1,3 +1,4 @@
+from enum import unique
 from itertools import product
 
 from product.models import Product
@@ -21,6 +22,7 @@ class Cart:
             my_product = Product.objects.get(id=item['id'])
             item["product"] = my_product
             item['total'] = my_product.price * item["quantity"]
+            item['unique_id'] = self.unique_id_generator(my_product.id , item["size"] , item["color"])
             yield item
 
     def unique_id_generator(self, product_id, size, color):
@@ -42,4 +44,7 @@ class Cart:
             self.cart[unique]['quantity'] += int(quantity)
         self.save()
 
-    # def delete_cart(self):
+    def delete_cart(self, id):
+        if id in self.cart :
+            del self.cart[id]
+            self.save()

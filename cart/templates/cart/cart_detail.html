@@ -28,7 +28,7 @@
                             <td class="align-middle">{{item.size}}</td>
                            <td class="align-middle">{{item.total}}</td>
 
-                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                            <td class="align-middle"><a href="{% url "del_to_cart" item.unique_id %}"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></a></td>
                         </tr>
                     {% endfor %}
 
