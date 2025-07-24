@@ -1,10 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-this is for order detail
-</body>
-</html>
+{% extends "main.html" %}
+{% load static %}
+{% block content %}
+      <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-light table-borderless table-hover text-center mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                             <th>Image</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Color</th>
+                            <th>Size</th>
+                            <th>Total</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                       {% for item in order.items.all %}
+                            <tr>
+                            <td class="align-middle"><img src="{{ item.product.image.url }}" alt="" style="width: 50px;"> </td>
+                            <td class="align-middle">{{ item.product.title }}</td>
+                            <td class="align-middle">{{item.product.price}}</td>
+                            <td class="align-middle">{{item.quantity}}</td>
+                            <td class="align-middle">{{item.color}}</td>
+                            <td class="align-middle">{{item.size}}</td>
+                           <td class="align-middle"> $ {{cart.total}}</td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <form class="mb-30" action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Apply Coupon</button>
+                        </div>
+                    </div>
+                </form>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="border-bottom pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6>$150</h6>
+                        </div>
+
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            <h5>{{order.total_price}}</h5>
+                        </div>
+                        {% if request.user.addresses.exists %}
+                                <a href="{% url "create_order" %}"><button class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</button> </a>
+                            {% else %}
+                            <a href="{% url 'add_address' %}?next={% url 'order_detail' order.id %}"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Add Your Address First</button> </a>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+{#                <a href="{% url "create_order" %}"><button class="btn btn-block btn-success font-weight-bold my-3 py-3">Pay</button> </a>#}
+
+                {% if request.user.addresses.exists %}
+                <select class="form-control" aria-label="Default select example">
+{#                          <option selected>Select Your Address From Here </option>#}
+                            {% for address in request.user.addresses.all %}
+                                 <option value="{{ address.id }}">{{ address.address}}</option>
+                            {% endfor %}
+                </select>
+                <a href="{% url "add_address"%}?next={% url 'order_detail' order.id %}"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Another Address</button> </a>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
