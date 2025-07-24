@@ -45,8 +45,5 @@ class AddAddressForm(forms.ModelForm):
         exclude = ['user']
 
 
-
-
-
 class RegisterSecondForm(forms.Form):
     code = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control' , 'placeholder': 'Enter your Code'}),)

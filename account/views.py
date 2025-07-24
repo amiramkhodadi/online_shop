@@ -92,9 +92,11 @@ class AddAddressView(View):
     def post(self, request):
         form = AddAddressForm(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'account/add_address.html' ,  {'form':form})
-            # return redirect('/')
+            if form.is_valid():
+                address = form.save(commit=False)
+                address.user = request.user
+                address.save()
+                return redirect('add_address')
 
     def get(self, request):
         form = AddAddressForm()

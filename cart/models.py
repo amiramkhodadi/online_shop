@@ -12,7 +12,7 @@ class Order(models.Model):
 
 
     def __str__(self):
-        return f'{self.user.full_name} - {self.phone} - {self.is_paid}'
+        return f'{self.user.full_name}  - {self.is_paid}'
 
 
 class OrderItem(models.Model):
