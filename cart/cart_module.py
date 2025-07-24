@@ -34,11 +34,11 @@ class Cart:
         unique = self.unique_id_generator(product_id=product.id , size=size, color=color)
         if unique not in self.cart:
             self.cart[unique] = {
-                'quantity': int(quantity),
-                'price': str(product.price),
-                'size': size,
-                'color': color,
-                'id': product.id
+                'quantity':int(quantity),
+                'price':str(product.price),
+                'size':size,
+                'color':color,
+                'id':product.id
             }
         else:
             self.cart[unique]['quantity'] += int(quantity)
@@ -46,7 +46,7 @@ class Cart:
 
     def total(self):
         total = 0
-        for item in self.cart.values():
+        for item in self:
             total += item['total']
         return total
 
