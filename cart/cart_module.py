@@ -44,6 +44,12 @@ class Cart:
             self.cart[unique]['quantity'] += int(quantity)
         self.save()
 
+    def total(self):
+        total = 0
+        for item in self.cart.values():
+            total += item['total']
+        return total
+
     def delete_cart(self, id):
         if id in self.cart :
             del self.cart[id]
