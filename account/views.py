@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import User
 import random
 
-from account.forms import LoginForm, RegisterForm, RegisterSecondForm
+from account.forms import LoginForm, RegisterForm, RegisterSecondForm, AddAddressForm
 from account.models import VerificationCode
 
 
@@ -87,3 +87,15 @@ class RegisterSecoundStepView(View):
 def user_logout(request):
     logout(request)
     return redirect('/')
+
+class AddAddressView(View):
+    def post(self, request):
+        form = AddAddressForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'account/add_address.html' ,  {'form':form})
+            # return redirect('/')
+
+    def get(self, request):
+        form = AddAddressForm()
+        return render(request , 'account/add_address.html' , {'form':form})

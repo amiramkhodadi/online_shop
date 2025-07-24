@@ -7,9 +7,6 @@ from product.models import Product
 # Create your models here.
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE , related_name='orders')
-    address = models.CharField(max_length=100)
-    email = models.EmailField( null=True, blank=True)
-    phone = models.CharField(max_length=100)
     created_date = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
 

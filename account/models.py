@@ -82,3 +82,15 @@ class VerificationCode(models.Model):
 
     def __str__(self):
         return f"{self.code} - Valid: {self.is_valid()} - {self.phone}"
+
+class Address(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE , related_name='addresses')
+    full_name = models.CharField(verbose_name="full name", max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(verbose_name="phone number", max_length=12)
+    address = models.CharField(verbose_name="address", max_length=255)
+    postall_code  = models.CharField(verbose_name="postal code", max_length=20)
+
+
+    def __str__(self):
+        return f"{self.email} - {self.phone}"
