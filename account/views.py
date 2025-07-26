@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -25,6 +26,11 @@ class LoginView(View):
             cd = form.cleaned_data
             user = authenticate(username=cd['phone'], password=cd['password'])
             if user is not None:
+                login(request, user)
+                next_page = request.GET.get('next') or request.POST.get('next')
+                print(f"Next page: {next_page}")
+                if next_page:
+                    return redirect(next_page)
                 return redirect('/')
 
             else :
@@ -88,7 +94,7 @@ def user_logout(request):
     logout(request)
     return redirect('/')
 
-class AddAddressView(View):
+class AddAddressView(LoginRequiredMixin,View):
     def post(self, request):
         form = AddAddressForm(request.POST)
         if form.is_valid():
