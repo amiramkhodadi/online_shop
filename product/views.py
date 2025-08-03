@@ -21,4 +21,5 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'product/products_list.html'
+    paginate_by = 1
 
