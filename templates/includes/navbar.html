@@ -10,22 +10,9 @@
                     <div class="navbar-nav w-100">
                     {% for category in navbar_categories %}
                         {% if not category.parent %}
-                            {% if category.children.all %}
-                            <div class="nav-item dropdown dropright">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ category.title }} <i class="fa fa-angle-right float-right mt-1"></i></a>
-                                    <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                        {% for child in category.children.all %}
-                                            <a href="" class="dropdown-item">{{ child.title}}</a>
-                                        {% endfor %}
-                                    </div>
-                            </div>
-                                {% else %}
-                                <a href="" class="nav-item nav-link">{{ category.title }}</a>
-                                {% endif %}
+                              {% include "includes/categori_dropdown.html" with category=category %}
                         {% endif %}
                     {% endfor %}
-
-
 
                     </div>
                 </nav>

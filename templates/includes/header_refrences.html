@@ -21,3 +21,29 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{%  static "css/style.css" %}" rel="stylesheet">
+
+<style>
+/* موقعیت‌دهی زیرمنوهای تودرتو */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: 0;
+    display: none;
+    position: absolute;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}
+.navbar-nav .dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+}
+.dropdown-menu {
+    margin-top: 0;
+}
+</style>

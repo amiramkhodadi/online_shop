@@ -1,0 +1,14 @@
+{% if category.children.all %}
+<div class="nav-item dropdown dropdown-submenu position-relative">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+        {{ category.title }} <i class="fa fa-angle-right float-right mt-1"></i>
+    </a>
+    <div class="dropdown-menu border-0 rounded-0 m-0">
+        {% for child in category.children.all %}
+            {% include "includes/categori_dropdown.html" with category=child %}
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<a href="#" class="nav-item nav-link">{{ category.title }}</a>
+{% endif %}
