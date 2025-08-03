@@ -142,3 +142,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "account.User"
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend' , 'account.authentication.SettingsBackend' ]
+
+#
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379",
+#     }
+# }
