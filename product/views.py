@@ -17,3 +17,8 @@ from django.views.generic.list import ListView
 class ProductDetailView(DetailView):
     model = Product
 
+class ProductListView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'product/products_list.html'
+
